@@ -1,0 +1,107 @@
+Step 1:
+Download the latest JDK(jdk-11.0.14_linux-x64_bin.tar.gz) from the official site.
+
+https://www.oracle.com/java/technologies/downloads/#java11
+
+Step 2:
+Open the terminal (Ctrl + Alt + T) and enter the following command.
+
+sudo mkdir /usr/lib/jvm
+
+Copy
+If the /usr/lib/jvm folder does not exist, this command will create the directory. If you already have this folder, you can ignore this step and move to the next step.
+
+Step 3:
+Enter the following command to change the directory.
+
+cd /usr/lib/jvm
+
+Copy
+
+Step 4:
+Extract the jdk-Xuxx-linux-xXX.tar.gz file in that directory using this command.
+
+sudo tar -xvzf ~/Downloads/jdk-11.0.14_linux-x64_bin.tar.gz
+
+Copy
+According to this command, the JDK filename is jdk-11.0.14_linux-x64_bin.tar.gz and which is located in the ~/Downloads folder. If your downloaded file is in any other location, change the command according to your path.
+
+Step 5:
+Enter the following command to open the environment variables file.
+
+sudo nano /etc/environment
+
+Copy
+
+According to your personal preference, you can choose any text editors instead of nano.
+
+Step 6:
+In the opened file, add the following bin folder to the existing PATH variable.
+
+/usr/lib/jvm/jdk-11.0.14/bin
+
+Copy
+The PATH variables must be separated by colon.
+
+Add the following environment variables at the end of the file.
+
+JAVA_HOME="/usr/lib/jvm/jdk-11.0.14"
+
+Copy
+
+The environment file before the modification:
+
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+
+Copy
+The environment file after the modification:
+
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/jdk-11.0.14/bin"
+JAVA_HOME="/usr/lib/jvm/jdk-11.0.14"
+
+Copy
+
+Save the changes and close nano (Ctrl + O, Ctrl + X).
+To learn more about setting environment variables and/or to set the environment variable without root privilege, check How to Set Environment Variables in Linux?.
+ 
+Step 7:
+Enter the following commands to inform the system about the Java's location. Depending on your JDK version, the paths can be different.
+
+sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk-11.0.14/bin/java" 0
+
+Copy
+
+sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/jdk-11.0.14/bin/javac" 0
+
+Copy
+
+sudo update-alternatives --set java /usr/lib/jvm/jdk-11.0.14/bin/java
+
+Copy
+
+sudo update-alternatives --set javac /usr/lib/jvm/jdk-11.0.14/bin/javac
+
+Copy
+
+Step 8:
+To verify the setup enter the following commands and make sure that they print the location of java and javac as you have provided in the previous step.
+
+update-alternatives --list java
+
+Copy
+
+update-alternatives --list javac
+
+Copy
+
+Step 9:
+Restart the computer (or just log-out and login) and open the terminal again.
+
+Step 10:
+Enter the following command.
+
+java -version
+
+Copy
+
+If you get the installed Java version as the output, you have successfully installed the Oracle JDK in your system.
