@@ -1,1 +1,111 @@
-# Install-Oracle-JDK-Linux
+# Install Oracle JDK 8 on Linux
+
+Step 1:
+Download the latest JDK(jdk-8u321-linux-x64.tar.gz) from this official site.
+This article assumes that you have a x64 bit Linux distribution as most of the famous Linux distributions have dropped the support for x86 architecture. However, if you are using an x86 bit Linux distribution, download the jdk-8u321-linux-i586.tar.gz from the official site and change the following commands according to the filename 
+
+https://www.oracle.com/java/technologies/downloads/#java8
+
+Step 2:
+Open the terminal (Ctrl + Alt + T) and enter the following command.
+
+sudo mkdir /usr/lib/jvm
+
+Copy
+If the /usr/lib/jvm folder does not exist, this command will create the directory. If you already have this folder, you can ignore this step and move to next step.
+
+Step 3:
+Enter the following command to change the directory.
+
+cd /usr/lib/jvm
+
+Copy
+
+Step 4:
+Extract the jdk-8u321-linux-x64.tar.gz file in that directory using this command.
+
+sudo tar -xvzf ~/Downloads/jdk-8u321-linux-x64.tar.gz
+
+Copy
+According to this command, the JDK filename is jdk-8u321-linux-x64.tar.gz and which is located in the ~/Downloads folder. If your downloaded file is in any other location, change the command according to your path.
+
+Step 5:
+Enter the following command to open the environment variables file.
+
+sudo gedit /etc/environment
+
+Copy
+
+Step 6:
+In the opened file, add the following bin folders to the existing PATH variable.
+
+/usr/lib/jvm/jdk1.8.0_321/bin
+/usr/lib/jvm/jdk1.8.0_321/db/bin
+/usr/lib/jvm/jdk1.8.0_321/jre/bin
+
+Copy
+The PATH variables have to be separated by a colon.
+Notice that the installed JDK version is 1.8 update 321. Depending on your JDK version, the paths can be different.
+Add the following environment variables at the end of the file.
+
+J2SDKDIR="/usr/lib/jvm/jdk1.8.0_321"
+J2REDIR="/usr/lib/jvm/jdk1.8.0_321/jre"
+JAVA_HOME="/usr/lib/jvm/jdk1.8.0_321"
+DERBY_HOME="/usr/lib/jvm/jdk1.8.0_321/db"
+
+Copy
+
+The environment file before the modification:
+
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+
+Copy
+The environment file after the modification:
+
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/jdk1.8.0_321/bin:/usr/lib/jvm/jdk1.8.0_321/db/bin:/usr/lib/jvm/jdk1.8.0_321/jre/bin"
+J2SDKDIR="/usr/lib/jvm/jdk1.8.0_321"
+J2REDIR="/usr/lib/jvm/jdk1.8.0_321/jre"
+JAVA_HOME="/usr/lib/jvm/jdk1.8.0_321"
+DERBY_HOME="/usr/lib/jvm/jdk1.8.0_321/db"
+
+Copy
+
+Save the changes and close the gedit. To learn more about setting environment variables and/or to set the environment variable without root privilege, check How to Set Environment Variables in Linux?.
+
+Step 7:
+Enter the following commands to inform the system about the Java's location. Depending on your JDK version, the paths can be different.
+
+sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk1.8.0_321/bin/java" 0
+
+Copy
+
+sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/jdk1.8.0_321/bin/javac" 0
+
+Copy
+
+sudo update-alternatives --set java /usr/lib/jvm/jdk1.8.0_321/bin/java
+
+Copy
+
+sudo update-alternatives --set javac /usr/lib/jvm/jdk1.8.0_321/bin/javac
+
+Copy
+
+Step 8:
+To verify the setup enter the following commands and make sure that they print the location of java and javac as you have provided in the previous step.
+
+update-alternatives --list java
+
+Copy
+
+update-alternatives --list javac
+
+Copy
+
+Step 9:
+Restart the computer (or just log-out and login) and open the terminal again.
+
+Step 10:
+Enter the following command.
+
+java -version
